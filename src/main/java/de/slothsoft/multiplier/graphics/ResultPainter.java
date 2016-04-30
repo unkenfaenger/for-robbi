@@ -17,7 +17,7 @@ public class ResultPainter implements Painter {
 
 	private final InputPainter inputPainter;
 
-	private int textHeight;
+	private int textHeight = 14;
 	private Dimension targetSize = new Dimension(100, 100);
 
 	public ResultPainter(Result result) {
