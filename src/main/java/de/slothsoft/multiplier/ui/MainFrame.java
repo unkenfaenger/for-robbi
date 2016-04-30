@@ -1,9 +1,15 @@
 package de.slothsoft.multiplier.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import de.slothsoft.multiplier.Calculation;
@@ -35,9 +41,36 @@ public class MainFrame extends JFrame {
 	}
 
 	private void createControls() {
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(createMenu(), BorderLayout.NORTH);
+
+		getContentPane().add(createContent(), BorderLayout.CENTER);
+
+	}
+
+	private JMenuBar createMenu() {
+		JMenuBar menu = new JMenuBar();
+
+		JMenu fileMenu = new JMenu("File");
+		menu.add(fileMenu);
+
+		JMenu calculationMenu = new JMenu("Calculation");
+		calculationMenu.add(createItem("Change Input", this::changeInput));
+		calculationMenu.add(createItem("Calculate", this::calculate));
+		menu.add(calculationMenu);
+
+		return menu;
+	}
+
+	private JMenuItem createItem(String text, ActionListener listener) {
+		JMenuItem item = new JMenuItem(text);
+		item.addActionListener(listener);
+		return item;
+	}
+
+	private Component createContent() {
 		JPanel content = new JPanel();
 		content.setLayout(new GridBagLayout());
-		add(content);
 
 		this.imagePanel = new PainterPanel(new InputPainter(this.input));
 		content.add(this.imagePanel, GridBagData.forPanel(0, 0));
@@ -46,6 +79,7 @@ public class MainFrame extends JFrame {
 		buttons.addButton("Change Input", this::changeInput);
 		buttons.addButton("Calculate", this::calculate);
 		content.add(buttons, GridBagData.forControl(0, 1));
+		return content;
 	}
 
 	private void changeInput(ActionEvent event) {
