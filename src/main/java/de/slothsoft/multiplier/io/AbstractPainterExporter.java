@@ -45,6 +45,7 @@ public class AbstractPainterExporter<T> implements Exporter {
 		try {
 			Painter painter = this.painterFactory.apply((T) source);
 			Dimension size = painter.getPreferredSize();
+			painter.setTargetSize(size);
 
 			BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D graphics = (Graphics2D) image.getGraphics();
