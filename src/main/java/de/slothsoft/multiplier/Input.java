@@ -1,12 +1,20 @@
 package de.slothsoft.multiplier;
 
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class wraps all possible input objects
  * 
  * @author Unkenfaenger
  * @since 0.0.1
  */
-public class Input implements Cloneable {
+
+@XmlRootElement
+public class Input implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1043622810928944528L;
 
 	private int factor1 = 5;
 	private int factor2 = 3;

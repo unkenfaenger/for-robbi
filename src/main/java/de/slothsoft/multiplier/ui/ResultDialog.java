@@ -41,7 +41,13 @@ public class ResultDialog extends JDialog {
 		content.add(resultPanel, GridBagData.forPanel(0, 0));
 
 		ButtonBar buttons = new ButtonBar();
+		buttons.addButton("Export", e -> exportResult());
 		buttons.addButton("Close", e -> dispose());
 		content.add(buttons, GridBagData.forControl(0, 1));
+	}
+
+	private void exportResult() {
+		PorterHandler handler = new PorterHandler();
+		handler.performExport(this, Result.class, this.result);
 	}
 }

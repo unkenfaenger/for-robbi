@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -32,6 +33,8 @@ public class MainFrame extends JFrame {
 
 	private PainterPanel imagePanel;
 
+	private final PorterHandler handler = new PorterHandler();
+
 	public MainFrame() {
 		super("Multiplier");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -52,14 +55,27 @@ public class MainFrame extends JFrame {
 		JMenuBar menu = new JMenuBar();
 
 		JMenu fileMenu = new JMenu("File");
+		fileMenu.add(createItem("Import input", this::performImport));
+		fileMenu.add(createItem("Export input", this::performExport));
 		menu.add(fileMenu);
 
 		JMenu calculationMenu = new JMenu("Calculation");
-		calculationMenu.add(createItem("Change Input", this::changeInput));
+		calculationMenu.add(createItem("Change input", this::changeInput));
 		calculationMenu.add(createItem("Calculate", this::calculate));
 		menu.add(calculationMenu);
 
 		return menu;
+	}
+
+	private void performImport(ActionEvent event) {
+		Input result = this.handler.performImport(this, Input.class);
+		if (result != null) {
+			setInput(result);
+		}
+	}
+
+	private void performExport(ActionEvent event) {
+		this.handler.performExport(this, Input.class, this.input);
 	}
 
 	private JMenuItem createItem(String text, ActionListener listener) {
@@ -95,4 +111,14 @@ public class MainFrame extends JFrame {
 		ResultDialog resultDialog = new ResultDialog(this, result);
 		resultDialog.setVisible(true);
 	}
+
+	public Input getInput() {
+		return this.input;
+	}
+
+	public void setInput(Input input) {
+		this.input = Objects.requireNonNull(input);
+		this.imagePanel.setPainter(new InputPainter(this.input));
+	}
+
 }

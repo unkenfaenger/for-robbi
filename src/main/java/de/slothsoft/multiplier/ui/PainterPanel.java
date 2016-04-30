@@ -14,7 +14,7 @@ public class PainterPanel extends JPanel {
 
 	private static final long serialVersionUID = -8284740896277282141L;
 
-	private final Painter painter;
+	private Painter painter;
 
 	public PainterPanel(Painter painter) {
 		this.painter = painter;
@@ -38,4 +38,15 @@ public class PainterPanel extends JPanel {
 	public Dimension getPreferredSize() {
 		return this.painter.getPreferredSize();
 	}
+
+	public void setPainter(Painter painter) {
+		this.painter = painter;
+		this.painter.setTargetSize(getSize());
+		repaint();
+	}
+
+	public Painter getPainter() {
+		return this.painter;
+	}
+
 }

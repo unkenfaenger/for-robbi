@@ -1,5 +1,7 @@
 package de.slothsoft.multiplier;
 
+import java.util.prefs.Preferences;
+
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -14,6 +16,7 @@ import de.slothsoft.multiplier.ui.MainFrame;
 
 public class Multiplier {
 
+	private static final Preferences PREFERENCES = Preferences.userNodeForPackage(Multiplier.class);
 	private static MainFrame mainFrame;
 
 	public static void main(String[] args) {
@@ -38,5 +41,9 @@ public class Multiplier {
 
 	public static MainFrame getMainFrame() {
 		return mainFrame;
+	}
+
+	public static Preferences getPreferences() {
+		return PREFERENCES;
 	}
 }

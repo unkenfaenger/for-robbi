@@ -2,6 +2,8 @@ package de.slothsoft.multiplier;
 
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class wraps the output
  * 
@@ -9,10 +11,15 @@ import java.util.Objects;
  * @since 0.0.1
  */
 
+@XmlRootElement
 public class Result {
 
 	private Input input;
 	private int product;
+
+	Result() {
+		// for XML parsing
+	}
 
 	public Result(Input input) {
 		setInput(input);
